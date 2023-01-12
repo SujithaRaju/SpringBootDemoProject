@@ -1,6 +1,5 @@
 package com.example.SpringBootDemoProject.Service;
-
-import com.example.SpringBootDemoProject.Model.Customers;
+import com.example.SpringBootDemoProject.Model.Products;
 import com.example.SpringBootDemoProject.Repository.CustomersRepository;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,29 +14,33 @@ public class CustomersService {
     @Autowired
     CustomersRepository customersRepository;
 
-    public Customers postCustomers(Customers customers){
-        Customers savedCustomers=customersRepository.save(customers);
+    public Products postCustomers(Products customers){
+        Products savedCustomers=customersRepository.save(customers);
         return savedCustomers;
     }
 
-    public List<Customers> dispalyCustomerDetails(){
-       List<Customers> displayAllCustomers= customersRepository.findAll();
+    public List<Products> dispalyCustomerDetails(){
+       List<Products> displayAllCustomers= customersRepository.findAll();
        return displayAllCustomers;
     }
 
-    public Customers getCustomerById(Long id){
-        Customers getCustomersById=customersRepository.findByCustomerId(id);
+    public Products getCustomerById(Long id){
+        Products getCustomersById=customersRepository.findByCustomerId(id);
         return getCustomersById;
     }
 
-    public Customers updateCustomerById(Long id,Customers customers) {
-        Customers getUpdatedCustomerById=customersRepository.findByCustomerId(id);
+    public Products updateCustomerById(Long id,Products customers) {
+        Products getUpdatedCustomerById=customersRepository.findByCustomerId(id);
       if (customersRepository.findByCustomerId(id).getId().equals(getUpdatedCustomerById.getId())){
          getUpdatedCustomerById.setId(customers.getId());
-         getUpdatedCustomerById.setFirstName(customers.getFirstName());
-         getUpdatedCustomerById.setLastName(customers.getLastName());
-         getUpdatedCustomerById.setBranch(customers.getBranch());
-         Customers updatedCustomers=customersRepository.save(getUpdatedCustomerById);
+         getUpdatedCustomerById.setProductName(customers.getProductName());
+         getUpdatedCustomerById.setProductCode(customers.getProductCode());
+         getUpdatedCustomerById.setReleaseDate(customers.getReleaseDate());
+          getUpdatedCustomerById.setDescription(customers.getDescription());
+          getUpdatedCustomerById.setPrice(customers.getPrice());
+          getUpdatedCustomerById.setImageUrl(customers.getImageUrl());
+          getUpdatedCustomerById.setStarRating(customers.getStarRating());
+         Products updatedCustomers=customersRepository.save(getUpdatedCustomerById);
          return updatedCustomers;
       }else{
          return getUpdatedCustomerById;
@@ -45,7 +48,7 @@ public class CustomersService {
     }
 
     public String deleteCusterById(Long id){
-        Customers customers=customersRepository.findByCustomerId(id);
+        Products customers=customersRepository.findByCustomerId(id);
         if(customers!=null) {
             customersRepository.delete(customers);
             return "Customer deleted successfully";
